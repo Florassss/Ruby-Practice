@@ -1,11 +1,17 @@
 # assignment 1 caesar_cipher
-def caesar_cipher(input_str, num)
-    # input_str.chars
-    # put input_str.chars
-    chars = input_str.chars.map{|char| char.ord}
-    result = chars.map{|char| char + num}
-    result = result.map {|char| char.chr}.join()
-    return result
-end 
+def caesar_cipher(message, shift, result = '')
+    message.each_char do |char|
+      base = char.ord < 91 ? 65 : 97
+      # Modifies Lowercase & Uppercase
+      if char.ord.between?(65, 90) || char.ord.between?(97, 122)
+        rotation = (((char.ord - base) + shift) % 26) + base
+        result += rotation.chr
+      # Keeps spaces & punctuation
+      else
+        result += char
+      end
+    end
+    result
+  end
 
 puts caesar_cipher('Hello World', 2)
